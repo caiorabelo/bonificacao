@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FuncionarioRequest;
 use App\Models\Funcionario;
-use Illuminate\Http\Request;
 
 class FuncionarioController extends Controller
 {
@@ -40,7 +40,7 @@ class FuncionarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FuncionarioRequest $request)
     {
         $funcionario = $request->all();
 
@@ -53,6 +53,9 @@ class FuncionarioController extends Controller
         =str_replace(".", "", $funcionario['saldo_atual']);
         $funcionario['saldo_atual']
         =str_replace(",", ".", $funcionario['saldo_atual']);
+
+        //SENHA CRIPTOGRAFADA
+        $funcionario['senha'] = bcrypt($funcionario['senha']);
 
         Funcionario::create($funcionario);
 
@@ -111,7 +114,7 @@ class FuncionarioController extends Controller
         }
 
         //CONVERTE PARA FORMATO BRASILEIRO
-        $funcionario['saldo_atual'] 
+        $funcionario['saldo_atual']
         =number_format($funcionario['saldo_atual'], 2, ',', '.');
 
         return view(
@@ -129,7 +132,7 @@ class FuncionarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FuncionarioRequest $request, $id)
     {
         $funcionario = Funcionario::find($id);
 
@@ -149,6 +152,10 @@ class FuncionarioController extends Controller
         =str_replace(".", "", $funcionario_request['saldo_atual']);
         $funcionario_request['saldo_atual']
         =str_replace(",", ".", $funcionario_request['saldo_atual']);
+
+        //SENHA CRIPTOGRAFADA
+        $funcionario_request['senha']
+        = bcrypt($funcionario_request['senha']);
 
         $funcionario->update($funcionario_request);
 

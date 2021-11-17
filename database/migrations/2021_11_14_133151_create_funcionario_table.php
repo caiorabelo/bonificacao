@@ -20,8 +20,8 @@ class CreateFuncionarioTable extends Migration
             $table->string('login');
             $table->string('senha');
             $table->double('saldo_atual');
-            $table->datetime('data_criacao')->nullable();
-            $table->datetime('data_alteracao')->nullable();
+            $table->datetime('data_criacao');
+            $table->datetime('data_alteracao');
 
             $table->foreign('administrador_id')->references('id')->on('administrador');
         });

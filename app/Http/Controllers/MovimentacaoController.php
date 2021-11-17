@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MovimentacaoRequest;
 use App\Models\Funcionario;
 use App\Models\Movimentacao;
-use Illuminate\Http\Request;
 
 class MovimentacaoController extends Controller
 {
@@ -48,7 +48,7 @@ class MovimentacaoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MovimentacaoRequest $request)
     {
         $movimentacao = $request->all();
 
@@ -56,7 +56,7 @@ class MovimentacaoController extends Controller
             return redirect()
                 ->back()
                 ->with(
-                    'error', 
+                    'error',
                     'A movimentação não pode ser finalizada'
                 );
         }
@@ -66,7 +66,7 @@ class MovimentacaoController extends Controller
         =str_replace(".", "", $movimentacao['valor']);
         $movimentacao['valor']
         =str_replace(",", ".", $movimentacao['valor']);
-        
+
         Movimentacao::create($movimentacao);
 
         return redirect()
@@ -124,7 +124,7 @@ class MovimentacaoController extends Controller
         }
 
         //CONVERTE PARA FORMATO BRASILEIRO
-        $movimentacao['valor'] 
+        $movimentacao['valor']
         =number_format($movimentacao['valor'], 2, ',', '.');
 
         $funcionarios = Funcionario::all();
@@ -145,7 +145,7 @@ class MovimentacaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MovimentacaoRequest $request, $id)
     {
         $movimentacao = Movimentacao::find($id);
 
@@ -165,7 +165,7 @@ class MovimentacaoController extends Controller
         =str_replace(".", "", $movimentacao_request['valor']);
         $movimentacao_request['valor']
         =str_replace(",", ".", $movimentacao_request['valor']);
-       
+
         $movimentacao->update($movimentacao_request);
 
         return redirect()

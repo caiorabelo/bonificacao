@@ -19,7 +19,7 @@ class CreateMovimentacaoTable extends Migration
             $table->integer('funcionario_id')->unsigned();
             $table->integer('administrador_id')->unsigned();
             $table->double('valor');
-            $table->text('observacao');
+            $table->text('observacao')->nullable();
             $table->datetime('data_criacao');
 
             $table->foreign('funcionario_id')->references('id')->on('funcionario')->onDelete('cascade');
