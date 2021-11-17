@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FuncionarioRequest;
 use App\Models\Funcionario;
+use App\Models\Movimentacao;
+use PDF;
 
 class FuncionarioController extends Controller
 {
@@ -50,9 +52,9 @@ class FuncionarioController extends Controller
 
         // CONVERTE PARA FORMATO AMERICADO
         $funcionario['saldo_atual']
-        =str_replace(".", "", $funcionario['saldo_atual']);
+            = str_replace(".", "", $funcionario['saldo_atual']);
         $funcionario['saldo_atual']
-        =str_replace(",", ".", $funcionario['saldo_atual']);
+            = str_replace(",", ".", $funcionario['saldo_atual']);
 
         //SENHA CRIPTOGRAFADA
         $funcionario['senha'] = bcrypt($funcionario['senha']);
@@ -115,7 +117,7 @@ class FuncionarioController extends Controller
 
         //CONVERTE PARA FORMATO BRASILEIRO
         $funcionario['saldo_atual']
-        =number_format($funcionario['saldo_atual'], 2, ',', '.');
+            = number_format($funcionario['saldo_atual'], 2, ',', '.');
 
         return view(
             'admin.funcionario.edit',
@@ -149,13 +151,13 @@ class FuncionarioController extends Controller
 
         // CONVERTE PARA FORMATO AMERICADO
         $funcionario_request['saldo_atual']
-        =str_replace(".", "", $funcionario_request['saldo_atual']);
+            = str_replace(".", "", $funcionario_request['saldo_atual']);
         $funcionario_request['saldo_atual']
-        =str_replace(",", ".", $funcionario_request['saldo_atual']);
+            = str_replace(",", ".", $funcionario_request['saldo_atual']);
 
         //SENHA CRIPTOGRAFADA
         $funcionario_request['senha']
-        = bcrypt($funcionario_request['senha']);
+            = bcrypt($funcionario_request['senha']);
 
         $funcionario->update($funcionario_request);
 
@@ -194,5 +196,23 @@ class FuncionarioController extends Controller
                 'success',
                 'Funcionário deletado com sucesso!'
             );
+    }
+
+    public function extrato($id)
+    {
+        $funcionario = Funcionario::find($id);
+        $movimentacoes = Movimentacao::where('funcionario_id',$id)->get();
+
+        $pdf = PDF::loadView(
+            'admin.relatorio.extratoFuncionario',
+            [
+                'funcionario'=>$funcionario,
+                'movimentacoes'=>$movimentacoes,
+            ]
+        );
+
+        return $pdf->setPaper('a4')
+        ->stream('Extrato.pdf');
+
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\MovimentacaoController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,20 +16,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//MIDDLEWARE AUTENTICAÇÃO
+Route::middleware(['auth'])->group(function () {
 
-// FUNCIONÁRIO-----------------------------------------------------------------
-Route::resource('/bonificacao/funcionarios',FuncionarioController::class);
-// --------------------------------------------------------------------------
+    //ROTA RAIZ
+    Route::get('/', function () {
+        return redirect()->route('funcionarios.index');
+    });
 
-// MOVIMENTAÇÃO-----------------------------------------------------------------
-Route::resource('/bonificacao/movimentacoes',MovimentacaoController::class);
-// --------------------------------------------------------------------------
+    // FUNCIONÁRIO-----------------------------------------------------------------
+    Route::resource('/bonificacao/funcionarios', FuncionarioController::class);
 
+    Route::get('/bonificacao/extrato/{id}', [FuncionarioController::class, 'extrato'])
+        ->name('funcionarios.extrato');
 
-Route::get('/', function () {
-    return view('welcome');
+    // --------------------------------------------------------------------------
+
+    // MOVIMENTAÇÃO-----------------------------------------------------------------
+    Route::resource('/bonificacao/movimentacoes', MovimentacaoController::class);
+    // --------------------------------------------------------------------------
+
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -49,6 +49,11 @@
                                     href="{{ route('funcionarios.show', $funcionario->id) }}" data-toggle="tooltip"
                                     data-placement="top" title="Detalhes"><i class="fas fa-eye"></i></a>
 
+                                {{-- Extrato --}}
+                                <a class="btn btn-sm btn-secondary text-white"
+                                    href="{{ route('funcionarios.extrato', $funcionario->id) }}" data-toggle="tooltip"
+                                    data-placement="top" title="Extrato"><i class="fas fa-file-signature"></i></a>
+
                                 {{-- Botão Editar --}}
                                 <a class="btn btn-sm btn-warning text-white"
                                     href="{{ route('funcionarios.edit', $funcionario->id) }}" data-toggle="tooltip"
