@@ -53,7 +53,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 * Feito isso! Rode o seguinte comando:
     ```bash
-    php artisan migrate
+    php artisan migrate --seed
     ```
 
 -------------------------------------------------
@@ -66,6 +66,9 @@ Para utilizar você vai precisar seguir os seguintes passos:
     ```bash
     php artisan serve
     ```
+Para fazer login utilize os seguintes dados pré-configurados:
+* Login: admin
+* Senha: 12345678
 
 -------------------------------------------------
 
