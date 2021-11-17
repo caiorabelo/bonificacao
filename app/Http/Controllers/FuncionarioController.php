@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class FuncionarioController extends Controller
 {
     /**
-     * Mosta a listagem de funcionários.
+     * Mostra a listagem de funcionários.
      *
      * @return \Illuminate\Http\Response
      */
@@ -17,7 +17,7 @@ class FuncionarioController extends Controller
         $funcionarios = Funcionario::all();
 
         return view(
-            'view',
+            'admin.funcionario.index',
             [
                 'funcionarios' => $funcionarios,
             ]
@@ -31,7 +31,7 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        return view('view');
+        return view('admin.funcionario.create');
     }
 
     /**
@@ -47,6 +47,12 @@ class FuncionarioController extends Controller
         if (!$funcionario) {
             return redirect()->back();
         }
+
+        // CONVERTE PARA FORMATO AMERICADO
+        $funcionario['saldo_atual']
+        =str_replace(".", "", $funcionario['saldo_atual']);
+        $funcionario['saldo_atual']
+        =str_replace(",", ".", $funcionario['saldo_atual']);
 
         Funcionario::create($funcionario);
 
@@ -78,7 +84,7 @@ class FuncionarioController extends Controller
         }
 
         return view(
-            'view',
+            'admin.funcionario.show',
             [
                 'funcionario' => $funcionario,
             ]
@@ -104,8 +110,12 @@ class FuncionarioController extends Controller
                 );
         }
 
+        //CONVERTE PARA FORMATO BRASILEIRO
+        $funcionario['saldo_atual'] 
+        =number_format($funcionario['saldo_atual'], 2, ',', '.');
+
         return view(
-            'view',
+            'admin.funcionario.edit',
             [
                 'funcionario' => $funcionario,
             ]
@@ -131,9 +141,16 @@ class FuncionarioController extends Controller
                     'Funcionário não encontrado!'
                 );
         }
-        $funcionario->update([
-            $request->all(),
-        ]);
+
+        $funcionario_request = $request->all();
+
+        // CONVERTE PARA FORMATO AMERICADO
+        $funcionario_request['saldo_atual']
+        =str_replace(".", "", $funcionario_request['saldo_atual']);
+        $funcionario_request['saldo_atual']
+        =str_replace(",", ".", $funcionario_request['saldo_atual']);
+
+        $funcionario->update($funcionario_request);
 
         return redirect()
             ->back()

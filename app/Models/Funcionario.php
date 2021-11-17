@@ -15,7 +15,7 @@ class Funcionario extends Model
         'senha',
         'senha',
         'saldo_atual',
-        'administracao_id',
+        'administrador_id',
         'data_criacao',
         'data_alteracao',
     ];

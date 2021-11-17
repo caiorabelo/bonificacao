@@ -14,7 +14,7 @@ class MovimentacaoFactory extends Factory
     public function definition()
     {
         return [
-            'tipo_movimentacao' => 'saida',
+            'tipo_movimentacao' => 'saída',
             'valor' => $this->faker->randomFloat(2),
             'observacao' => $this->faker->paragraph(),
             'funcionario_id' => $this->faker->randomDigitNotNull(),

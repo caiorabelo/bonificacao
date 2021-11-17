@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\MovimentacaoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 // FUNCIONÁRIO-----------------------------------------------------------------
 Route::resource('/bonificacao/funcionarios',FuncionarioController::class);
+// --------------------------------------------------------------------------
+
+// MOVIMENTAÇÃO-----------------------------------------------------------------
+Route::resource('/bonificacao/movimentacoes',MovimentacaoController::class);
 // --------------------------------------------------------------------------
 
 
