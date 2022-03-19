@@ -24,6 +24,7 @@ Tabela de conteúdos
 
 * Primeiramente verifique se você possui os seguintes requisitos:
     * PHP 7.2.5+
+    
     * Composer
     * Laravel
     * Mysql
