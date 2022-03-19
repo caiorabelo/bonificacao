@@ -26,8 +26,9 @@ Tabela de conteúdos
     * PHP 7.2.5+
 
     * Composer
-    
+
     * Laravel
+    
     * Mysql
     
 
