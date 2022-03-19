@@ -93,7 +93,7 @@ As seguintes ferramentas foram utilizadas na construção do projeto
 <div style="width: 30%; display: inline-block">
  <a href="https://github.com/caiorabelo">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/caiorabelo" width="100px;" alt=""/><br>
- <b>Caio Rabelo Pereira</b>
+ <b>Caio Rabelo</b>
  </a>
  </div>
 
